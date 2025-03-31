@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+  namespace: myapp
+data:
+  nginx.conf: |
+    events {
+    }
+    http {
+      upstream stocks {
+        server stocks-service:5001;
+      }
+      upstream capital-gains {
+        server capital-gains-service:8080;
+      }
+      server {
+        listen 80;
+        location /stocks {
+          proxy_pass http://stocks;
+        }
+        location /stocks/stock-value/ {
+          proxy_pass http://stocks/stock-value/;
+        }
+        location /stocks/portfolio-value/ {
+          proxy_pass http://stocks/portfolio-value;
+        }
+        location /capital-gains {
+          proxy_pass http://capital-gains;
+        }
+      }
+    }

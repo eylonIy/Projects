@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stocks-deployment
+  namespace: myapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: stocks
+  template:
+    metadata:
+      labels:
+        app: stocks
+    spec:
+      containers:
+      - name: stocks-container
+        image: stocks:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5001
+        env:
+        - name: MONGODB_URI
+          value: "mongodb://mongodb-service:27017/stocks"
+        - name: PORT
+          value: "5001"

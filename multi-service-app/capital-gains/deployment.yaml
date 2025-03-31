@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: capital-gains-deployment
+  namespace: myapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: capital-gains
+  template:
+    metadata:
+      labels:
+        app: capital-gains
+    spec:
+      containers:
+      - name: capital-gains-container
+        image: capital-gains:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        env:
+        - name: STOCKS_URL  # Changed from STOCKS to STOCKS_URL
+          value: "http://stocks-service:5001"  # Changed from stocks to stocks-service
+        - name: PORT
+          value: "8080"
