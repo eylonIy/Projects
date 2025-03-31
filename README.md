@@ -1,5 +1,5 @@
 # Python Projects
 
-Some simple tools written by Eylon Iyov to help you with your day to day cyber shenanigans!
+Some simple projects written by Eylon Iyov
 
 -For Educational Purpose Only-
